@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import heavyRain from "../assets/heavy-rain.png";
 import water from "../assets/water.png";
 import wind from "../assets/wind.png";
@@ -10,10 +10,34 @@ import SearchBar from "../components/SearchBar";
 const Home = () => {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
-  const handleSearch = (city) => {
+  const [forecast, setForecast] = useState(null);
+  const defaultCity = "Kozhikode";
+  const date = new Date(weather?.dt * 1000);
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayName = days[date.getDay()];
+  console.log("Day Name:", dayName);
+
+
+
+  useEffect(() => {
+    handleSearch(defaultCity);
+  }, []);
+  const handleSearch = async (city) => {
     if (!city) return;
-    console.log("Searching for:", city);
-    // Implement search functionality here
+    const API_KEY = import.meta.env.VITE_API_KEY;
+
+    console.log("Searching for:", city, API_KEY);
+    const WeatherResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`
+    );
+    const WeatherData = await WeatherResponse.json();
+    setWeather(WeatherData);
+    console.log("Weather data:", WeatherData);
+    const forecastResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+    );
+    const forecastData = await forecastResponse.json();
+    setForecast(forecastData);
   };
   return (
     <div className="flex flex-row gap-2 p-4 w-full h-screen bg-gray-100 items-stretch">
@@ -23,15 +47,23 @@ const Home = () => {
 
         <img
           className="w-40 h-40 object-cover "
-          src={heavyRain}
+          src={
+            weather &&
+            new URL(
+              `../assets/${weather?.weather[0]?.main}.png`,
+              import.meta.url
+            ).href
+          }
           alt="Weather Icon"
         />
 
-        <h2 className="text-6xl font-normal ">30°C</h2>
+        <h2 className="text-6xl font-normal ">
+          {weather && Math.round(weather.main.temp)}°C
+        </h2>
         <div className="w-full ">
           <div className="flex flex-row justify-between w-full text-sm mb-2">
-            <h3 className="text-2xl font-bold">Kozhiode</h3>
-            <h3 className="text-2xl font-bold">Monday</h3>
+            <h3 className="text-2xl font-bold">{(weather && weather.name)}</h3>
+            <h3 className="text-2xl font-bold">{dayName}</h3>
           </div>
 
           <div className="w-full h-[4px] bg-white rounded-full " />
@@ -39,11 +71,11 @@ const Home = () => {
         <div className="space-y-2 mt-4 w-full ">
           <div className="flex items-center gap-2">
             <img className="w-6 h-6" src={Temperature} alt="Min Temp" />
-            <p className="text-sm m-0">Min Temperature - 20°C</p>
+            <p className="text-sm m-0">Min Temperature - {(weather && Math.round(weather.main.temp_min))}°C</p>
           </div>
           <div className="flex items-center gap-2">
             <img className="w-6 h-6" src={Temperature} alt="Max Temp" />
-            <p className="text-sm m-0">Max Temperature - 31°C</p>
+            <p className="text-sm m-0">Max Temperature - {(weather && Math.round(weather.main.temp_max))}°C</p>
           </div>
         </div>
 
