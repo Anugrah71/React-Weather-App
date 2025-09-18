@@ -9,38 +9,41 @@ import TemperatureChart from "../components/TemperatureChart";
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 import SearchBar from "../components/SearchBar";
-import { getCoordinates, getWeather, getForecast, getUVIndex } from "../service/Weatherapi";
+import {
+  getCoordinates,
+  getWeather,
+  getForecast,
+  getUVIndex,
+} from "../service/Weatherapi";
 
 const Home = () => {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [groupedDays, setGroupedDays] = useState([]);
-  const [uvIndex , setUvIndex] = useState(null);
+  const [uvIndex, setUvIndex] = useState(null);
   const [hourlyData, setHourlyData] = useState([]);
 
   const defaultCity = "Kozhikode";
   const date = new Date(weather?.dt * 1000);
 
-
   const weatherEmojis = {
-  Clear: "☀️",
-  Clouds: "☁️",
-  Rain: "🌧️",
-  Drizzle: "🌦️",
-  Thunderstorm: "⛈️",
-  Snow: "❄️",
-  Mist: "🌫️",
-  Smoke: "💨",
-  Haze: "🌁",
-  Dust: "🏜️",
-  Fog: "🌫️",
-  Sand: "🏜️",
-  Ash: "🌋",
-  Squall: "🌬️",
-  Tornado: "🌪️",
-};
-
+    Clear: "☀️",
+    Clouds: "☁️",
+    Rain: "🌧️",
+    Drizzle: "🌦️",
+    Thunderstorm: "⛈️",
+    Snow: "❄️",
+    Mist: "🌫️",
+    Smoke: "💨",
+    Haze: "🌁",
+    Dust: "🏜️",
+    Fog: "🌫️",
+    Sand: "🏜️",
+    Ash: "🌋",
+    Squall: "🌬️",
+    Tornado: "🌪️",
+  };
 
   const weekDays = [
     "Sunday",
@@ -92,21 +95,22 @@ const Home = () => {
         setUvIndex(uvData.daily.uv_index_max[0]);
       }
 
-       const hourlyData = uvData.hourly.time.map((time, index) => ({
-      time: new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      temperature: uvData.hourly.temperature_2m[index],
-      precipitation: uvData.hourly.precipitation[index]
-
-    }));
-     setHourlyData(hourlyData);
-    console.log(">>>>>>>>>>>",hourlyData)
+      const hourlyData = uvData.hourly.time.map((time, index) => ({
+        time: new Date(time).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        temperature: uvData.hourly.temperature_2m[index],
+        precipitation: uvData.hourly.precipitation[index],
+      }));
+      setHourlyData(hourlyData);
+      console.log(">>>>>>>>>>>", hourlyData);
 
       const weatherData = await getWeather(city, API_KEY);
       setWeather(weatherData);
 
       const forecastData = await getForecast(city, API_KEY);
       setForecast(forecastData);
-
     } catch (error) {
       console.error("Error:", error);
     }
@@ -118,8 +122,7 @@ const Home = () => {
       <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white w-[400px] pl-8 pr-8 pt-4 pb-4 rounded-lg h-full">
         <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
 
-
-              <p className="text-9xl">{weatherEmojis[weather?.weather[0]?.main]}</p>
+        <p className="text-9xl">{weatherEmojis[weather?.weather[0]?.main]}</p>
 
         <h2 className="text-6xl font-normal ">
           {weather && Math.round(weather.main.temp)}°C
@@ -161,7 +164,8 @@ const Home = () => {
             <img className="w-12 h-12" src={water} alt="Humidity Icon" />
             <div>
               <h3 className="text-lg font-bold m-0 mb-1 leading-none">
-                {weather && weather.main.humidity}%</h3>
+                {weather && weather.main.humidity}%
+              </h3>
               <p className="text-xs m-0">Humidity</p>
             </div>
           </div>
@@ -169,7 +173,8 @@ const Home = () => {
             <img className="w-12 h-12" src={wind} alt="Wind Icon" />
             <div>
               <h3 className="text-lg font-bold m-0 mb-1 leading-none">
-                {weather && weather.wind.speed} km/h</h3>
+                {weather && weather.wind.speed} km/h
+              </h3>
               <p className="text-xs m-0">Wind Speed</p>
             </div>
           </div>
@@ -185,9 +190,12 @@ const Home = () => {
               className="bg-[#2D2F42] flex flex-col items-center justify-around rounded-lg p-3 h-40 w-40"
             >
               <h3 className="text-lg mb-2">{getDayName(day[0].dt)}</h3>
-             <p className="text-6xl">{weatherEmojis[weather?.weather[0]?.main]}</p>
+              <p className="text-6xl">
+                {weatherEmojis[weather?.weather[0]?.main]}
+              </p>
               <p className="text-lg">
-                {Math.round(Math.max(...day.map((item) => item.main.temp_max)))}°C
+                {Math.round(Math.max(...day.map((item) => item.main.temp_max)))}
+                °C
               </p>
             </div>
           ))}
@@ -199,19 +207,67 @@ const Home = () => {
             <h3 className="text-sm mb-2">Air Quality Index</h3>
             <p className="text-4xl font-bold mt-6">53</p>
             <p className="text-green-400 text-lg mt-6">Good</p>
-            <img src={airPollution} alt="" className="absolute bottom-4 right-4 "/>
+            <img
+              src={airPollution}
+              alt=""
+              className="absolute bottom-4 right-4 "
+            />
           </div>
           <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
             <h3 className="text-sm mb-4">UV Index</h3>
             <p className="text-4xl font-bold mt-6">{uvIndex}</p>
-            <p className="text-yellow-400 text-lg mt-6">Moderate</p>
+            <p
+              className={`${
+                uvIndex
+                  ? uvIndex >= 0 && uvIndex <= 2
+                    ? "text-green-400"
+                    : uvIndex > 2 && uvIndex <= 5
+                    ? "text-yellow-400"
+                    : "text-red-400"
+                  : ""
+              } text-lg mt-6`}
+            >
+              {uvIndex
+                ? uvIndex >= 0 && uvIndex <= 2
+                  ? "Good"
+                  : uvIndex > 2 && uvIndex <= 5
+                  ? "Moderate"
+                  : "High"
+                : "Loading..."}
+            </p>
             <img src={uvindex} alt="" className="absolute bottom-4 right-4 " />
           </div>
           <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
             <h3 className="text-sm  mb-4">Pressure (hpa)</h3>
-            <p className="text-4xl font-bold mt-6">{weather && weather.main.pressure}</p>
-            <p className=" text-lg mt-6">Normal</p>
-            <img src={barometer} alt="" className="absolute bottom-4 right-4 " />
+            <p className="text-4xl font-bold mt-6">
+              {weather && weather.main.pressure}
+            </p>
+            <p
+              className={`text-lg mt-6 ${
+                weather &&
+                weather.main.pressure >= 1010 &&
+                weather.main.pressure <= 1020
+                  ? "text-green-400"
+                  : weather &&
+                    (weather.main.pressure < 1000 ||
+                      weather.main.pressure > 1030)
+                  ? "text-red-400"
+                  : "text-white-400"
+              }`}
+            >
+              {weather?.main?.pressure
+                ? weather.main.pressure >= 1010 && weather.main.pressure <= 1020
+                  ? "Good"
+                  : weather.main.pressure < 1000 || weather.main.pressure > 1030
+                  ? "High"
+                  : "Moderate"
+                : "Loading..."}
+            </p>
+            <img
+              src={barometer}
+              alt=""
+              className="absolute bottom-4 right-4 "
+            />
           </div>
         </div>
 
@@ -225,12 +281,28 @@ const Home = () => {
           <div className="bg-[#2D2F42] p-4 rounded-lg w-65 h-58">
             <h3 className="text-sm mb-2">Sunrise & Sunset</h3>
             <div className="flex items-center gap-3 mb-4">
-            <span className="text-6xl ">🌅</span>
-            <p className="text-36"> Sunrise: {weather && new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+              <span className="text-6xl ">🌅</span>
+              <p className="text-36">
+                {" "}
+                Sunrise:{" "}
+                {weather &&
+                  new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+              </p>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-6xl ">🌇</span>
-              <p className="text-36"> Sunset: {weather && new Date(weather.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+              <p className="text-36">
+                {" "}
+                Sunset:{" "}
+                {weather &&
+                  new Date(weather.sys.sunset * 1000).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+              </p>
             </div>
           </div>
         </div>
