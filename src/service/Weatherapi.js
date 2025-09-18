@@ -30,7 +30,7 @@ export const getForecast = async (city, apiKey) => {
 
 export const getUVIndex = async (latitude, longitude) => {
   const response = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=uv_index_max&hourly=temperature_2m`
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=uv_index_max&hourly=temperature_2m,precipitation&timezone=auto`
   );
   return response.json();
 };
