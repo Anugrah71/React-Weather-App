@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import airPollution from "../assets/air-pollution.png";
 import barometer from "../assets/barometer.png";
 import uvindex from "../assets/uv.png";
@@ -14,6 +14,7 @@ import {
   getWeather,
   getForecast,
   getUVIndex,
+  getAirQuality,
 } from "../service/Weatherapi";
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [groupedDays, setGroupedDays] = useState([]);
+  const [airQuality, setAirQuality] = useState(null);
   const [uvIndex, setUvIndex] = useState(null);
   const [hourlyData, setHourlyData] = useState([]);
 
@@ -54,6 +56,14 @@ const Home = () => {
     "Friday",
     "Saturday",
   ];
+
+  const airQualityLevels = {
+    1: { label: "Good", color: "text-green-400" },
+    2: { label: "Fair", color: "text-yellow-400" },
+    3: { label: "Moderate", color: "text-orange-400" },
+    4: { label: "Poor", color: "text-red-400" },
+    5: { label: "Very Poor", color: "text-red-600" },
+  };
   const dayName = weekDays[date.getDay()];
 
   const getDayName = (dt) => {
@@ -108,6 +118,9 @@ const Home = () => {
 
       const weatherData = await getWeather(city, API_KEY);
       setWeather(weatherData);
+
+      const airQualityData = await getAirQuality(latitude, longitude, API_KEY);
+      setAirQuality(airQualityData);
 
       const forecastData = await getForecast(city, API_KEY);
       setForecast(forecastData);
@@ -205,8 +218,14 @@ const Home = () => {
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
             <h3 className="text-sm mb-2">Air Quality Index</h3>
-            <p className="text-4xl font-bold mt-6">53</p>
-            <p className="text-green-400 text-lg mt-6">Good</p>
+
+            <p className={"text-4xl font-bold mt-6"}>
+              {airQuality && airQuality.list[0].main.aqi}
+            </p>
+            <p className={`${airQuality && airQualityLevels[airQuality.list[0].main.aqi].color} text-lg font-bold mt-6`}>
+              {airQuality && airQualityLevels[airQuality.list[0].main.aqi].label
+               || "Loading..."}
+            </p>
             <img
               src={airPollution}
               alt=""
@@ -225,7 +244,7 @@ const Home = () => {
                     ? "text-yellow-400"
                     : "text-red-400"
                   : ""
-              } text-lg mt-6`}
+              } text-lg mt-6 font-bold`}
             >
               {uvIndex
                 ? uvIndex >= 0 && uvIndex <= 2
@@ -243,7 +262,7 @@ const Home = () => {
               {weather && weather.main.pressure}
             </p>
             <p
-              className={`text-lg mt-6 ${
+              className={`text-lg font-bold mt-6 ${
                 weather &&
                 weather.main.pressure >= 1010 &&
                 weather.main.pressure <= 1020
