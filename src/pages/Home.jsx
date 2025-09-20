@@ -28,10 +28,28 @@ const Home = () => {
 
   const defaultCity = "Kozhikode";
   const date = new Date(weather?.dt * 1000);
-  console.log(">>>>>>>>>>>>>", date);
+  // console.log(">>>>>>>>>>>>>", date);
+
+
+  const getWeatherCategory = (id) => {
+  if (!id) return "Clear"; 
+
+  if (id >= 200 && id <= 232) return "Thunderstorm";
+  if (id >= 300 && id <= 321) return "Rain"; 
+  if (id >= 500 && id <= 531) return "Rain";
+  if (id >= 600 && id <= 622) return "Snow";
+  if (id >= 701 && id <= 781) return "Fog"; 
+  if (id === 800) return "Clear";
+  if (id === 801) return "PartlyCloudy";
+  if (id === 802 || id === 803) return "MostlyCloudy";
+  if (id === 804) return "MostlyCloudy";
+  
+  return "Clear"; // default fallback
+};
+
 
   const weatherBackgrounds = {
-    Sunny: "linear-gradient(135deg, #f9d423, #ff4e50)",
+    Clear: "linear-gradient(135deg, #f9d423, #ff4e50)",
     PartlyCloudy: "linear-gradient(135deg, #667db6, #0082c8, #667db6)",
     MostlyCloudy: "linear-gradient(135deg, #757f9a, #d7dde8)",
     Rain: "linear-gradient(135deg, #373b44, #4286f4)",
@@ -130,7 +148,7 @@ const Home = () => {
         precipitation: uvData.hourly.precipitation[index],
       }));
       setHourlyData(hourlyData);
-      console.log(">>>>>>>>>>>", hourlyData);
+      // console.log(">>>>>>>>>>>", hourlyData);
 
       const weatherData = await getWeather(city, API_KEY);
       setWeather(weatherData);
@@ -149,10 +167,10 @@ const Home = () => {
     <div
       className="flex flex-col md:flex-row gap-2 p-4 w-full min-h-screen sm:h-screen  items-stretch"
       style={{
-        background:
-          weatherBackgrounds[weather?.weather?.[0]?.main] ||
-          weatherBackgrounds.Sunny,
-      }}
+    background: weather
+      ? weatherBackgrounds[getWeatherCategory(weather.weather[0].id)]
+      : "#5F6086" // fallback color while loading
+  }}
     >
       {/* Left Panel */}
       <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 flex flex-col  items-center gap-8 text-white justify-center pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
