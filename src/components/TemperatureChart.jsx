@@ -34,6 +34,7 @@ const TemperatureChart = ({ hourlyData }) => {
 
   const options = {
     responsive: true,
+    
     plugins: {
       legend: {
         display: true

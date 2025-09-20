@@ -134,7 +134,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-2 p-4 w-full h-screen bg-gray-100 items-stretch">
+    <div className="flex flex-col md:flex-row gap-2 p-4 w-full min-h-screen bg-red-900 items-stretch">
       {/* Left Panel */}
       <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
         <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
@@ -234,7 +234,7 @@ const Home = () => {
         </div>
 
         <h2 className="text-xl mb-4">Today's Overview</h2>
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
           <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
             <h3 className="text-sm mb-2">Air Quality Index</h3>
 
@@ -313,6 +313,34 @@ const Home = () => {
               className="absolute bottom-4 right-4 "
             />
           </div>
+
+          <div className="bg-[#2D2F42] p-4 rounded-lg block sm:hidden">
+            <h3 className="text-sm mb-2">Sunrise & Sunset</h3>
+            <div className="flex items-center gap-3 mb-2 sm:mb-4">
+              <span className="text-4xl md:text-6xl ">🌅</span>
+              <p className="text-36">
+                {" "}
+                Sunrise:{" "}
+                {weather &&
+                  new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-4xl sm:text-6xl ">🌇</span>
+              <p className="text-36">
+                {" "}
+                Sunset:{" "}
+                {weather &&
+                  new Date(weather.sys.sunset * 1000).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-row gap-4 w-full">
@@ -322,7 +350,7 @@ const Home = () => {
               <TemperatureChart hourlyData={hourlyData} />
             </div>
           </div>
-          <div className="bg-[#2D2F42] p-4 rounded-lg w-65 h-58">
+          <div className="bg-[#2D2F42] p-4 block hidden sm:block rounded-lg w-65 h-58">
             <h3 className="text-sm mb-2">Sunrise & Sunset</h3>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-6xl ">🌅</span>
