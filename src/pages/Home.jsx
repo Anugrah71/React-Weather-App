@@ -134,9 +134,9 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-row gap-2 p-4 w-full h-screen bg-gray-100 items-stretch">
+    <div className="flex flex-col md:flex-row gap-2 p-4 w-full h-screen bg-gray-100 items-stretch">
       {/* Left Panel */}
-      <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white w-[400px] pl-8 pr-8 pt-4 pb-4 rounded-lg h-full">
+      <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
         <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
 
         <p className="text-9xl">{weatherEmojis[weather?.weather[0]?.main]}</p>
@@ -200,7 +200,7 @@ const Home = () => {
 
       {/* Right Panel */}
       <div className="bg-[#5F6086] flex-1 p-4 rounded-lg h-full text-white">
-        <div className="flex flex-row gap-4 justify-between  mb-6">
+        <div className="flex flex-row gap-4 justify-between  mb-6 overflow-x-auto md:overflow-x-visible">
           {groupedDays.map((day, idx) => (
             <div
               key={idx}
@@ -212,7 +212,7 @@ const Home = () => {
               </div>
               <div className="flex flex-row justify-between w-full ">
                 <p className="text-6xl flex items-start">
-                  {weatherEmojis[weather?.weather[0]?.main]}
+                  {weatherEmojis[day[0].weather[0].main]}
                 </p>
                 <div>
                   <p className="text-lg">
