@@ -30,23 +30,21 @@ const Home = () => {
   const date = new Date(weather?.dt * 1000);
   // console.log(">>>>>>>>>>>>>", date);
 
-
   const getWeatherCategory = (id) => {
-  if (!id) return "Clear"; 
+    if (!id) return "Clear";
 
-  if (id >= 200 && id <= 232) return "Thunderstorm";
-  if (id >= 300 && id <= 321) return "Rain"; 
-  if (id >= 500 && id <= 531) return "Rain";
-  if (id >= 600 && id <= 622) return "Snow";
-  if (id >= 701 && id <= 781) return "Fog"; 
-  if (id === 800) return "Clear";
-  if (id === 801) return "PartlyCloudy";
-  if (id === 802 || id === 803) return "MostlyCloudy";
-  if (id === 804) return "MostlyCloudy";
-  
-  return "Clear"; // default fallback
-};
+    if (id >= 200 && id <= 232) return "Thunderstorm";
+    if (id >= 300 && id <= 321) return "Rain";
+    if (id >= 500 && id <= 531) return "Rain";
+    if (id >= 600 && id <= 622) return "Snow";
+    if (id >= 701 && id <= 781) return "Fog";
+    if (id === 800) return "Clear";
+    if (id === 801) return "PartlyCloudy";
+    if (id === 802 || id === 803) return "MostlyCloudy";
+    if (id === 804) return "MostlyCloudy";
 
+    return "Clear"; // default fallback
+  };
 
   const weatherBackgrounds = {
     Clear: "linear-gradient(135deg, #f9d423, #ff4e50)",
@@ -88,13 +86,8 @@ const Home = () => {
     "Saturday",
   ];
 
-  const airQualityLevels = {
-    1: { label: "Good", color: "text-green-400" },
-    2: { label: "Fair", color: "text-yellow-400" },
-    3: { label: "Moderate", color: "text-orange-400" },
-    4: { label: "Poor", color: "text-red-400" },
-    5: { label: "Very Poor", color: "text-red-600" },
-  };
+  
+  
   const dayName = weekDays[date.getDay()];
 
   const getDayName = (dt) => {
@@ -165,12 +158,10 @@ const Home = () => {
 
   return (
     <div
-      className="flex flex-col md:flex-row gap-2 p-4 w-full min-h-screen sm:h-screen  items-stretch"
+      className="flex flex-col md:flex-row gap-2 p-2 sm:p-4 w-full min-h-screen sm:h-screen  items-stretch"
       style={{
-    background: weather
-      ? weatherBackgrounds[getWeatherCategory(weather.weather[0].id)]
-      : "#5F6086" // fallback color while loading
-  }}
+        background: weather ? weatherBackgrounds["NightCloudy"] : "#5F6086", // fallback color while loading
+      }}
     >
       {/* Left Panel */}
       <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 flex flex-col  items-center gap-8 text-white justify-center pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
@@ -213,7 +204,7 @@ const Home = () => {
             </div>
           </div>
         )}
-        <div className="flex flex-row gap-6 bg-[#2D2F42] mt-8  rounded-xl p-3 w-full">
+        <div className="flex flex-row gap-6 bg-[#FFFFFF]/30 shadow-sm shadow-white/50 mt-8  rounded-xl p-3 w-full">
           <div className="flex items-center gap-3">
             <img className="w-12 h-12" src={water} alt="Humidity Icon" />
             <div>
@@ -241,7 +232,7 @@ const Home = () => {
           {groupedDays.map((day, idx) => (
             <div
               key={idx}
-              className="bg-[#2D2F42] flex flex-1 flex-col items-center  justify-center rounded-lg p-4 "
+              className="bg-[#FFFFFF]/50 opacity-80 flex flex-1 flex-col items-center  justify-center rounded-lg p-4 "
             >
               <div className="w-full flex justify-between">
                 <h3 className="text-xl mb-2">{getDayName(day[0].dt)}</h3>
@@ -269,10 +260,10 @@ const Home = () => {
             </div>
           ))}
         </div>
-
+        {/* Today's Overview */}
         <h2 className="text-xl mb-4">Today's Overview</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-          <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+          <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 p-4 h-48 rounded-lg relative">
             <h3 className="text-sm mb-2">Air Quality Index</h3>
 
             <p className={"text-4xl font-bold mt-6"}>
@@ -280,21 +271,30 @@ const Home = () => {
             </p>
             <p
               className={`${
-                airQuality &&
-                airQualityLevels[airQuality.list[0].main.aqi].color
-              } text-lg font-bold mt-6`}
+                airQuality
+                  ? airQuality.list[0].main.aqi < 2
+                    ? "text-green-400"
+                    : airQuality.list[0].main.aqi < 4
+                    ? "text-yellow-400"
+                    : "text-red-400"
+                  : "Loading..."
+              } text-lg font-bold mt-6 `}
             >
-              {(airQuality &&
-                airQualityLevels[airQuality.list[0].main.aqi].label) ||
-                "Loading..."}
+              {airQuality
+                ? airQuality.list[0].main.aqi < 2
+                  ? "Good"
+                  : airQuality.list[0].main.aqi < 4
+                  ? "Moderate"
+                  : "Poor"
+                : "Loading..."}
             </p>
             <img
               src={airPollution}
               alt=""
-              className="absolute bottom-4 right-4 "
+              className="absolute bottom-4 right-1 sm:bottom-4 sm:right-4 "
             />
           </div>
-          <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
+          <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 p-4 h-48 rounded-lg relative">
             <h3 className="text-sm mb-4">UV Index</h3>
             <p className="text-4xl font-bold mt-6">{uvIndex}</p>
             <p
@@ -318,7 +318,7 @@ const Home = () => {
             </p>
             <img src={uvindex} alt="" className="absolute bottom-4 right-4 " />
           </div>
-          <div className="bg-[#2D2F42] p-4 h-48 rounded-lg relative">
+          <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 p-4 h-48 rounded-lg relative">
             <h3 className="text-sm  mb-4">Pressure (hpa)</h3>
             <p className="text-4xl font-bold mt-6">
               {weather && weather.main.pressure}
@@ -347,11 +347,11 @@ const Home = () => {
             <img
               src={barometer}
               alt=""
-              className="absolute bottom-4 right-4 "
+              className="absolute bottom-4 right-1 sm:bottom-4 sm:right-4"
             />
           </div>
 
-          <div className="bg-[#2D2F42] p-4 rounded-lg block sm:hidden">
+          <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 p-4 rounded-lg block sm:hidden">
             <h3 className="text-sm mb-2">Sunrise & Sunset</h3>
             <div className="flex items-center gap-3 mb-2 sm:mb-4">
               <span className="text-4xl md:text-6xl ">🌅</span>
@@ -381,13 +381,13 @@ const Home = () => {
         </div>
 
         <div className="flex flex-row gap-4 w-full">
-          <div className="bg-[#2D2F42] p-4 rounded-lg w-screen sm:w-lg sm:h-58 flex-1">
+          <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 p-4 rounded-lg w-screen sm:w-lg sm:h-58 flex-1">
             <h3 className="text-sm mb-2">Precipitation</h3>
             <div className="sm:h-48 sm:w-150 flex items-center justify-center text-gray-400 text-xs">
               {/* <TemperatureChart hourlyData={hourlyData} /> */}
             </div>
           </div>
-          <div className="bg-[#2D2F42] p-4 block hidden sm:block rounded-lg w-65 h-58">
+          <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 p-4 block hidden sm:block rounded-lg w-65 h-58">
             <h3 className="text-sm mb-2">Sunrise & Sunset</h3>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-6xl ">🌅</span>
