@@ -136,7 +136,7 @@ const Home = () => {
   return (
     <div className="flex flex-col md:flex-row gap-2 p-4 w-full min-h-screen bg-red-900 items-stretch">
       {/* Left Panel */}
-      <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
+      <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white justify-center pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
         <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
 
         <p className="text-9xl">{weatherEmojis[weather?.weather[0]?.main]}</p>
@@ -344,10 +344,10 @@ const Home = () => {
         </div>
 
         <div className="flex flex-row gap-4 w-full">
-          <div className="bg-[#2D2F42] p-4 rounded-lg w-lg h-58 flex-1">
+          <div className="bg-[#2D2F42] p-4 rounded-lg w-screen sm:w-lg sm:h-58 flex-1">
             <h3 className="text-sm mb-2">Precipitation</h3>
-            <div className="h-48 w-150 flex items-center justify-center text-gray-400 text-xs">
-              <TemperatureChart hourlyData={hourlyData} />
+            <div className="sm:h-48 sm:w-150 flex items-center justify-center text-gray-400 text-xs">
+              {/* <TemperatureChart hourlyData={hourlyData} /> */}
             </div>
           </div>
           <div className="bg-[#2D2F42] p-4 block hidden sm:block rounded-lg w-65 h-58">

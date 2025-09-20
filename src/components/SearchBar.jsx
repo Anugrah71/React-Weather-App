@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchBar = ({ city, setCity, handleSearch }) => {
   return (
-    <div className="flex items-center gap-2 p-2 w-full">
+    <div className="flex items-center gap-2 p-2 ">
       <input
         type="text"
         value={city}
