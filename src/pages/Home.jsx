@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import airPollution from "../assets/air-pollution.png";
 import barometer from "../assets/barometer.png";
 import uvindex from "../assets/uv.png";
@@ -28,6 +28,7 @@ const Home = () => {
 
   const defaultCity = "Kozhikode";
   const date = new Date(weather?.dt * 1000);
+  console.log(">>>>>>>>>>>>>", date);
 
   const weatherEmojis = {
     Clear: "☀️",
@@ -70,7 +71,10 @@ const Home = () => {
     const date = new Date(dt * 1000);
     return date.toLocaleDateString("en-US", { weekday: "short" });
   };
-
+  const getDayMonth = (dt) => {
+    const date = new Date(dt * 1000);
+    return date.toLocaleDateString("en-US", { day: "numeric" });
+  };
   const groupByDay = (list) => {
     const days = {};
     list.forEach((item) => {
@@ -196,20 +200,35 @@ const Home = () => {
 
       {/* Right Panel */}
       <div className="bg-[#5F6086] flex-1 p-4 rounded-lg h-full text-white">
-        <div className="flex flex-row gap-3 justify-between mb-6">
+        <div className="flex flex-row gap-4 justify-between  mb-6">
           {groupedDays.map((day, idx) => (
             <div
               key={idx}
-              className="bg-[#2D2F42] flex flex-col items-center justify-around rounded-lg p-3 h-40 w-40"
+              className="bg-[#2D2F42] flex flex-1 flex-col items-center  justify-center rounded-lg p-4 "
             >
-              <h3 className="text-lg mb-2">{getDayName(day[0].dt)}</h3>
-              <p className="text-6xl">
-                {weatherEmojis[weather?.weather[0]?.main]}
-              </p>
-              <p className="text-lg">
-                {Math.round(Math.max(...day.map((item) => item.main.temp_max)))}
-                °C
-              </p>
+              <div className="w-full flex justify-between">
+                <h3 className="text-xl mb-2">{getDayName(day[0].dt)}</h3>
+                <h3 className="text-xl mb-2">{getDayMonth(day[0].dt)}</h3>
+              </div>
+              <div className="flex flex-row justify-between w-full ">
+                <p className="text-6xl flex items-start">
+                  {weatherEmojis[weather?.weather[0]?.main]}
+                </p>
+                <div>
+                  <p className="text-lg">
+                    {Math.round(
+                      Math.min(...day.map((item) => item.main.temp_min))
+                    )}
+                    °C
+                  </p>
+                  <p className="text-lg">
+                    {Math.round(
+                      Math.max(...day.map((item) => item.main.temp_max))
+                    )}
+                    °C
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -222,9 +241,15 @@ const Home = () => {
             <p className={"text-4xl font-bold mt-6"}>
               {airQuality && airQuality.list[0].main.aqi}
             </p>
-            <p className={`${airQuality && airQualityLevels[airQuality.list[0].main.aqi].color} text-lg font-bold mt-6`}>
-              {airQuality && airQualityLevels[airQuality.list[0].main.aqi].label
-               || "Loading..."}
+            <p
+              className={`${
+                airQuality &&
+                airQualityLevels[airQuality.list[0].main.aqi].color
+              } text-lg font-bold mt-6`}
+            >
+              {(airQuality &&
+                airQualityLevels[airQuality.list[0].main.aqi].label) ||
+                "Loading..."}
             </p>
             <img
               src={airPollution}
