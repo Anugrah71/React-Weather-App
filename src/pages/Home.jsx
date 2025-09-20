@@ -30,6 +30,18 @@ const Home = () => {
   const date = new Date(weather?.dt * 1000);
   console.log(">>>>>>>>>>>>>", date);
 
+  const weatherBackgrounds = {
+    Sunny: "linear-gradient(135deg, #f9d423, #ff4e50)",
+    PartlyCloudy: "linear-gradient(135deg, #667db6, #0082c8, #667db6)",
+    MostlyCloudy: "linear-gradient(135deg, #757f9a, #d7dde8)",
+    Rain: "linear-gradient(135deg, #373b44, #4286f4)",
+    Thunderstorm: "linear-gradient(135deg, #232526, #414345)",
+    Snow: "linear-gradient(135deg, #e6f0f3, #cfd9df)",
+    Fog: "linear-gradient(135deg, #757f9a, #d7dde8, #f0f0f0)",
+    NightClear: "linear-gradient(135deg, #141e30, #243b55)",
+    NightCloudy: "linear-gradient(135deg, #283048, #859398)",
+  };
+
   const weatherEmojis = {
     Clear: "☀️",
     Clouds: "☁️",
@@ -134,9 +146,16 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-2 p-4 w-full min-h-screen bg-red-900 items-stretch">
+    <div
+      className="flex flex-col md:flex-row gap-2 p-4 w-full min-h-screen sm:h-screen  items-stretch"
+      style={{
+        background:
+          weatherBackgrounds[weather?.weather?.[0]?.main] ||
+          weatherBackgrounds.Sunny,
+      }}
+    >
       {/* Left Panel */}
-      <div className="bg-[#5F6086] flex flex-col items-center gap-8 text-white justify-center pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
+      <div className="bg-[#FFFFFF]/30 shadow-sm shadow-white/50 flex flex-col  items-center gap-8 text-white justify-center pl-8 pr-8 pt-4 pb-4 rounded-lg w-full md:w-[400px] h-full">
         <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
 
         <p className="text-9xl">{weatherEmojis[weather?.weather[0]?.main]}</p>
@@ -199,7 +218,7 @@ const Home = () => {
       </div>
 
       {/* Right Panel */}
-      <div className="bg-[#5F6086] flex-1 p-4 rounded-lg h-full text-white">
+      <div className="bg-[#FFFFFF]/40 shadow-sm shadow-white/50 flex-1 p-4 rounded-lg h-full text-white">
         <div className="flex flex-row gap-4 justify-between  mb-6 overflow-x-auto md:overflow-x-visible">
           {groupedDays.map((day, idx) => (
             <div
