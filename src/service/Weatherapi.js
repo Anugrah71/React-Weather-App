@@ -23,10 +23,11 @@ export const getWeather = async (city, apiKey) => {
 
 export const getAirQuality = async (latitude, longitude, apiKey) => {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/air_pollution/history?lat=${latitude}&lon=${longitude}&start=1606223802&end=1606482999&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
   );
   return response.json();
 };
+
 
 export const getForecast = async (city, apiKey) => {
   const response = await fetch(
