@@ -16,17 +16,29 @@ export default function TemperatureChart({ hourlyData }) {
   const minTemp = Math.min(...temps);
   const maxTemp = Math.max(...temps);
 
+
+const numTicks = 4;  
+
+// step between ticks
+const step = Math.ceil((maxTemp - minTemp) / numTicks);
+
+
+const ticks = [];
+for (let t = Math.floor(minTemp); t <= maxTemp; t += step) {
+  ticks.push(t);
+}
+
   return (
     <div className="rounded-lg w-full h-50 mx-auto">
       <LineChart
         xAxis={[{
           data: times,
         scaleType: 'point',
-        tickLabelInterval: (i) => i % 3 === 0, // show every 3rd label
+        tickLabelInterval: (i) => i % 3 === 0, 
       }]}
-     yAxis={[{
-  ticks: [20, 22, 24, 26, 28],  // fixed tick labels
-}]}
+    yAxis={[{
+    ticks: ticks,   
+    }]}
 
 
       series={[{
