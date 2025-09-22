@@ -1,56 +1,56 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import * as React from 'react';
+import { LineChart } from '@mui/x-charts/LineChart';
 
-// Register necessary Chart.js components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+export default function TemperatureChart({ hourlyData }) {
+  if (!hourlyData || !hourlyData.length) return <p>Loading chart...</p>;
 
-const TemperatureChart = ({ hourlyData }) => {
-  const labels = hourlyData.map(item => item.time);
-  const data = hourlyData.map(item => item.temperature);
+  // Find the index of the first "12:00 am"
+  const startIndex = hourlyData.findIndex(item => item.time.toLowerCase() === "12:00 am");
 
-  const chartData = {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Precipitation',
-        data: data,
-        borderColor: 'rgba(75,192,192,1)',
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        fill: true,
-        tension: 0.4
-      }
-    ]
-  };
+  // If not found, fallback to start from index 0
+  const todayData = hourlyData.slice(startIndex >= 0 ? startIndex : 0, (startIndex >= 0 ? startIndex : 0) + 24);
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true
-      },
-      title: {
-        display: true,
-        text: 'Hourly Temperature'
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: false
-      }
-    }
-  };
+  const times = todayData.map(item => item.time);
+  const temps = todayData.map(item => item.temperature);
 
-  return <Line data={chartData} options={options} />;
-};
+  const minTemp = Math.min(...temps);
+  const maxTemp = Math.max(...temps);
 
-export default TemperatureChart;
+
+const numTicks = 4;  
+
+// step between ticks
+const step = Math.ceil((maxTemp - minTemp) / numTicks);
+
+
+const ticks = [];
+for (let t = Math.floor(minTemp); t <= maxTemp; t += step) {
+  ticks.push(t);
+}
+
+  return (
+    <div className="rounded-lg w-full h-50 mx-auto">
+      <LineChart
+        xAxis={[{
+          data: times,
+        scaleType: 'point',
+        tickLabelInterval: (i) => i % 3 === 0, 
+      }]}
+    yAxis={[{
+    ticks: ticks,   
+    }]}
+
+
+      series={[{
+        data: temps,
+        label: 'Temperature (°C)',
+        color: '#ff7043',
+        showMark: false,
+      }]}
+      height={200}
+      width={undefined}
+     
+    />  
+     </div>
+  );    
+}

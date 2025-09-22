@@ -2,13 +2,13 @@ import React from "react";
 
 const SearchBar = ({ city, setCity, handleSearch }) => {
   return (
-    <div className="flex items-center gap-2 p-2 w-full">
+    <div className="flex items-center gap-2 p-2 ">
       <input
         type="text"
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Search for a city..."
-        className="flex-1 h-12 px-4 bg-[#D9D9D9] rounded-lg focus:outline-none"
+        className="flex-1 h-12 px-4 bg-[#D9D9D9] text-black rounded-lg focus:outline-none"
       />
       <button
         onClick={() => handleSearch(city)}
