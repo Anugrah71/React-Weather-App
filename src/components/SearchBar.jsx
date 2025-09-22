@@ -8,7 +8,7 @@ const SearchBar = ({ city, setCity, handleSearch }) => {
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Search for a city..."
-        className="flex-1 h-12 px-4 bg-[#D9D9D9] rounded-lg focus:outline-none"
+        className="flex-1 h-12 px-4 bg-[#D9D9D9] text-black rounded-lg focus:outline-none"
       />
       <button
         onClick={() => handleSearch(city)}
