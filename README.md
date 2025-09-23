@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white" alt="MUI X"/>
 </p>
 <div>
-  <img src='./src/assets/img1'>
+  <img src='./src/assets/img5.png'>
 </div>
 
 A modern, responsive weather dashboard built with **React** and **Tailwind CSS**.  
