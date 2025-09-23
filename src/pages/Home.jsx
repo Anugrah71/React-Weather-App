@@ -13,7 +13,7 @@ import {
   getCoordinates,
   getWeather,
   getForecast,
-  getUVIndex,
+  OpenMeteo,
   getAirQuality,
 } from "../service/Weatherapi";
 
@@ -24,6 +24,7 @@ const Home = () => {
   const [groupedDays, setGroupedDays] = useState([]);
   const [airQuality, setAirQuality] = useState(null);
   const [uvIndex, setUvIndex] = useState(null);
+  const [OpenMeteoApi, setOpenMeteoApi] = useState(null);
   const [hourlyData, setHourlyData] = useState([]);
 
   const defaultCity = "Kozhikode";
@@ -152,40 +153,39 @@ const getBackgroundGradient = (weather) => {
     }
   }, [forecast]);
 
-  const handleSearch = async (city) => {
-    if (!city) return;
+ const handleSearch = async (city) => {
+  if (!city) return;
 
-    try {
-      const { latitude, longitude } = await getCoordinates(city);
+  try {
+    const { latitude, longitude } = await getCoordinates(city);
 
-      const uvData = await getUVIndex(latitude, longitude);
-      if (uvData && uvData.daily && uvData.daily.uv_index_max) {
-        setUvIndex(uvData.daily.uv_index_max[0]);
-      }
+    const openMeteoData = await OpenMeteo(latitude, longitude);
+    setOpenMeteoApi(openMeteoData);
 
-      const hourlyData = uvData.hourly.time.map((time, index) => ({
-        time: new Date(time).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-        temperature: uvData.hourly.temperature_2m[index],
-        precipitation: uvData.hourly.precipitation[index],
-      }));
-      setHourlyData(hourlyData);
-     
+    setUvIndex(openMeteoData.daily.uv_index_max[0]);
 
-      const weatherData = await getWeather(city, API_KEY);
-      setWeather(weatherData);
+    const minutelyData = openMeteoData.minutely_15.time.map((time, index) => ({
+      time: new Date(time).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      temperature: openMeteoData.minutely_15.temperature_2m[index],
+      precipitation: openMeteoData.minutely_15.precipitation[index],
+    }));
+    setHourlyData(minutelyData);
 
-      const airQualityData = await getAirQuality(latitude, longitude, API_KEY);
-      setAirQuality(airQualityData);
+    const weatherData = await getWeather(city, API_KEY);
+    setWeather(weatherData);
 
-      const forecastData = await getForecast(city, API_KEY);
-      setForecast(forecastData);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+    const airQualityData = await getAirQuality(latitude, longitude, API_KEY);
+    setAirQuality(airQualityData);
+
+    const forecastData = await getForecast(city, API_KEY);
+    setForecast(forecastData);
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
+};
 
   return (
     <div

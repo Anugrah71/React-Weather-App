@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-// This line is not needed if using TailwindCSS
 import Home from "./pages/Home";
 
 

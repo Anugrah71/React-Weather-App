@@ -1,5 +1,3 @@
-
-
 export const getCoordinates = async (city) => {
   const response = await fetch(
     `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
@@ -36,10 +34,9 @@ export const getForecast = async (city, apiKey) => {
   return response.json();
 };
 
-export const getUVIndex = async (latitude, longitude) => {
+export const OpenMeteo = async (latitude, longitude) => {
   const response = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=uv_index_max&hourly=temperature_2m,precipitation&timezone=auto`
+    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=uv_index_max&minutely_15=temperature_2m,relative_humidity_2m,precipitation,is_day,rain,snowfall,weather_code,wind_speed_10m`
   );
   return response.json();
 };
-
