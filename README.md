@@ -6,6 +6,9 @@
   <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite"/>
   <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white" alt="MUI X"/>
 </p>
+<div>
+  <img src='./src/assets/Screenshot%202025-09-23%20142908.png'>
+</div>
 
 A modern, responsive weather dashboard built with **React** and **Tailwind CSS**.  
 This app provides real-time weather, air quality, UV index, pressure, sunrise/sunset, and 5-day forecasts with dynamic backgrounds that change based on time of day and weather conditions.
