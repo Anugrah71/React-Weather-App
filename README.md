@@ -8,6 +8,10 @@
 </p>
 <div>
   <img src='./src/assets/Screenshot%202025-09-23%20142908.png'>
+  <img src='./src/assets/src/assets/Screenshot 2025-09-23 142921.png'>
+  <img src='./src/assets/src/assets/Screenshot 2025-09-23 142934.png'>
+  <img src='./src/assets/src/assets/Screenshot 2025-09-23 143143.png'>
+  <img src='./src/assets/Screenshot%202025-09-23%20142908.png'>
 </div>
 
 A modern, responsive weather dashboard built with **React** and **Tailwind CSS**.  
