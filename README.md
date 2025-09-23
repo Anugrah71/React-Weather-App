@@ -11,13 +11,16 @@
   <img src='./src/assets/img4.png'>
   <img src='./src/assets/img3.png'>
   <div>
-  <img src='./src/assets/img2.png'>
+  
   <img src='./src/assets/img1.png'>
+  <img src='./src/assets/img2.png'>
     </div>
 </div>
 
 A modern, responsive weather dashboard built with **React** and **Tailwind CSS**.  
 This app provides real-time weather, air quality, UV index, pressure, sunrise/sunset, and 5-day forecasts with dynamic backgrounds that change based on time of day and weather conditions.
+
+Live demo:https://react-weather-app-five-iota.vercel.app/
 
 ---
 
