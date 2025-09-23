@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white" alt="MUI X"/>
 </p>
 <div>
-  <img src='./src/assets/Screenshot%202025-09-23%20142908.png'>
+  <img src='./src/assets/img1'>
   <img src='./src/assets/src/assets/Screenshot 2025-09-23 142921.png'>
   <img src='./src/assets/src/assets/Screenshot 2025-09-23 142934.png'>
   <img src='./src/assets/src/assets/Screenshot 2025-09-23 143143.png'>
