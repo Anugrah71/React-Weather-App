@@ -72,7 +72,7 @@ src/
 1. **Clone the repo**
 
    ```sh
-   git clone https://github.com/yourusername/weather-app.git
+   git clone https://github.com/Anugrah71/React-Weather-App.git
    cd weather-app
    ```
 
