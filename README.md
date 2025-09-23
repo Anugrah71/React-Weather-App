@@ -9,6 +9,11 @@
 <div>
   <img src='./src/assets/img5.png'>
   <img src='./src/assets/img4.png'>
+  <img src='./src/assets/img3.png'>
+  <div>
+  <img src='./src/assets/img2.png'>
+  <img src='./src/assets/img1.png'>
+    </div>
 </div>
 
 A modern, responsive weather dashboard built with **React** and **Tailwind CSS**.  
