@@ -1,158 +1,83 @@
 # Weather App
 
+A modern, responsive weather dashboard that provides real-time weather insights, air quality monitoring, and 5-day forecasts with dynamic visual updates.
+
+
+---
+
+## Description
+
+This project is a comprehensive weather dashboard built for users who need detailed environmental data beyond just temperature. It integrates multiple professional weather APIs to provide Air Quality Index (AQI), UV Index, and interactive temperature trends in a sleek, mobile-first interface.
+
+---
+
+## Screenshots / Demo
+
+- **Live Demo:** https://react-weather-app-five-iota.vercel.app
+
 <p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
-  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite"/>
-  <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white" alt="MUI X"/>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" width="45%" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" width="45%" />
 </p>
-<div>
-  <img src='./src/assets/img5.png'>
-  <img src='./src/assets/img4.png'>
-  <img src='./src/assets/img3.png'>
-  <div>
-  
-  <img src='./src/assets/img1.png'>
-  <img src='./src/assets/img2.png'>
-    </div>
-</div>
 
-A modern, responsive weather dashboard built with **React** and **Tailwind CSS**.  
-This app provides real-time weather, air quality, UV index, pressure, sunrise/sunset, and 5-day forecasts with dynamic backgrounds that change based on time of day and weather conditions.
+<p align="center">
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" width="45%" />
+  <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white" width="45%" />
+</p>
 
-Live demo:https://react-weather-app-five-iota.vercel.app/
+### Dashboard Overview
+- Desktop View  
+- Mobile View  
 
 ---
 
 ## Features
 
-- **Real-time Weather Data:**Get the latest current weather and hourly forecasts for any city
-- **Search any city** using OpenWeather & Open-Meteo APIs
-- **Current Weather:** Temperature, Humidity, Wind Speed, Pressure
-- **24-Hour Temperature Chart** with custom tick scaling
-- **5-Day Forecast** (grouped by day)
-- **Dynamic Backgrounds** (Morning, Afternoon, Evening, Night)
-- **Air Quality Index (AQI)** with status colors (Good / Moderate / Poor)
-- **UV Index** with safety levels
-- **Sunrise & Sunset** times
-- **Responsive design** for mobile, tablet, and desktop
+- **Real-time Weather Data** – Temperature, humidity, wind speed, and pressure
+- **Search Functionality** – Geocoding-enabled city search worldwide
+- **Advanced Metrics**
+  - AQI status with color indicators (Good / Moderate / Poor)
+  - UV Index safety levels
+- **Interactive Visuals**
+  - 24-hour temperature chart
+  - 5-day weather forecast
+- **Dynamic UI**
+  - Background gradients change based on time of day and weather conditions
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** React, Tailwind CSS
-- **State Management:** React Hooks (`useState`, `useEffect`)
-- **Charting:** MUI X Charts (`LineChart`)
-- **APIs:**
-  - OpenWeatherMap API (Weather, Forecast, Air Pollution)
-  - Open-Meteo API (UV Index, Hourly Forecast, Geocoding)
+### Frontend
+- React (v19)
+- Tailwind CSS (v4)
 
----
+### Build Tool
+- Vite (v7)
 
-## Project Structure
+### Charting
+- MUI X Charts
+- Chart.js
+- react-chartjs-2
 
-```
-src/
-│── assets/                  # Weather icons & images
-│   ├── air-pollution.png
-│   ├── barometer.png
-│   ├── uv.png
-│   ├── water.png
-│   ├── wind.png
-│   └── Temperature 02.png
-│
-│── components/              # Reusable components
-│   ├── SearchBar.jsx
-│   └── TemperatureChart.jsx
-│
-│── service/                 # API service functions
-│   └── Weatherapi.js
-│
-│── pages/
-│   └── Home.jsx             # Main Dashboard page
-│
-│── App.jsx
-│── main.jsx
-│── index.css
-```
+### Routing
+- React Router DOM (v7)
+
+### APIs
+- **OpenWeatherMap**
+  - Current weather
+  - 5-day forecast
+  - Air Pollution data
+- **Open-Meteo**
+  - Geocoding (search)
+  - UV Index
+  - 15-minute interval metrics
 
 ---
 
 ## Installation & Setup
 
-1. **Clone the repo**
-
-   ```sh
-   git clone https://github.com/Anugrah71/React-Weather-App.git
-   cd weather-app
-   ```
-
-2. **Install dependencies**
-
-   ```sh
-   npm install
-   ```
-
-3. **Set up environment variables**
-
-   Create a `.env` file in the root directory and add your API key:
-
-   ```
-   VITE_API_KEY=your_openweather_api_key
-   ```
-
-4. **Run the project locally**
-   ```sh
-   npm run dev
-   ```
-
----
-
-## Deployment (Vercel)
-
-1. **Set Environment Variable**  
-   In your Vercel dashboard, add `VITE_API_KEY` in Project Settings → Environment Variables.
-
-2. **Build & Output Settings**
-
-   - Build Command: `vite build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-
-3. **vercel.json**  
-   Add this file to your project root for SPA routing:
-   ```json
-   {
-     "rewrites": [{ "source": "/(.*)", "destination": "/" }]
-   }
-   ```
-
----
-
-## UI Highlights
-
-- **Dynamic Gradient Backgrounds:** Changes based on time of day and weather type.
-- **Responsive Layout:** Mobile-friendly and desktop-optimized.
-- **Charts:** Visualize temperature trends with interactive charts.
-
----
-
-## Future Improvements
-
-- Add more weather parameters (visibility, feels-like temperature)
-- Location-based search (auto-detect user location)
-- Save recent searches in local storage
-- Dark/Light mode toggle
-
----
-
-## Screenshots
-
-_Add screenshots here to showcase your app UI._
-
----
-
-## License
-
-MIT
+### Clone the repository
+```bash
+git clone https://github.com/Anugrah71/React-Weather-App.git
+cd weather-app
