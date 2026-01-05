@@ -16,7 +16,7 @@ This project is a comprehensive weather dashboard built for users who need detai
 - **Live Demo:** https://react-weather-app-five-iota.vercel.app
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" width="45%" />
+  <img src="Screenshort/Weather1" width="45%" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" width="45%" />
 </p>
 
