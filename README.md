@@ -16,13 +16,13 @@ This project is a comprehensive weather dashboard built for users who need detai
 - **Live Demo:** https://react-weather-app-five-iota.vercel.app
 
 <p align="center">
-  <img src="Screenshort/Weather1" width="45%" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" width="45%" />
+  <img src="Screenshort/Weather1.png" width="45%" />
+  <img src="Screenshort/Weather2.png" width="45%" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" width="45%" />
-  <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white" width="45%" />
+  <img src="Screenshort/Weather4.png" width="45%" />
+  <img src="Screenshort/Weather5.png" width="45%" />
 </p>
 
 ### Dashboard Overview
