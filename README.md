@@ -81,3 +81,35 @@ This project is a comprehensive weather dashboard built for users who need detai
 ```bash
 git clone https://github.com/Anugrah71/React-Weather-App.git
 cd weather-app
+```
+## Install dependencies
+```bash
+npm install
+```
+## Run the project
+```bash
+npm run dev
+```
+## Environment Variables
+Create a `.env` file in the root directory and add:
+```bash
+VITE_API_KEY=your_openweather_api_key
+```
+---
+## Folder Structure
+```text
+src/
+│── assets/          # Icons & UI images (Wind, UV, Barometer, etc.)
+│── components/      # SearchBar, TemperatureChart
+│── service/         # Weatherapi.js (API logic)
+│── pages/           # Home.jsx (Main dashboard)
+│── App.jsx          # Root component
+└── main.jsx         # Entry point
+```
+## Future Improvements
+- Location-based search (auto-detect user location)
+- Search history using local storage
+- Additional metrics (visibility, "Feels Like" temperature)
+- Dark / Light theme toggle
+
+
